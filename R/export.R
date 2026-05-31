@@ -7,7 +7,8 @@
 #' materialising the dump into a local SQLite database that can be opened with
 #' RSQLite, mirroring the types of the live database.
 #'
-#' @param database_id Database UUID.
+#' @param database_id A database UUID, name, `d1_database` object, or open
+#'   `D1Connection` (resolved with [d1_database_id()]).
 #' @param tables Optional character vector restricting the export to these
 #'   tables.
 #' @param no_data If `TRUE`, export only the schema.
@@ -27,6 +28,7 @@ d1_export <- function(
   account_id = d1_account(),
   token = d1_token()
 ) {
+  resolve_db(database_id, account_id, token)
   dump_options <- compact(list(
     no_data = no_data,
     no_schema = no_schema,
@@ -69,6 +71,7 @@ d1_download <- function(
   account_id = d1_account(),
   token = d1_token()
 ) {
+  resolve_db(database_id, account_id, token)
   res <- d1_export(
     database_id,
     tables = tables,
@@ -88,6 +91,7 @@ d1_download_sqlite <- function(
   account_id = d1_account(),
   token = d1_token()
 ) {
+  resolve_db(database_id, account_id, token)
   rlang::check_installed("RSQLite", "to build a local SQLite database.")
   sql <- d1_download(
     database_id,

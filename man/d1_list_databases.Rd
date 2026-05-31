@@ -35,7 +35,8 @@ d1_set_replication(
 
 \item{location_hint}{Optional primary location hint, e.g. \code{"wnam"}.}
 
-\item{database_id}{Database UUID.}
+\item{database_id}{A database UUID, name, \code{d1_database} object, or open
+\code{D1Connection} (resolved with \code{\link[=d1_database_id]{d1_database_id()}}).}
 
 \item{mode}{Read-replication mode, \code{"auto"} or \code{"disabled"}.}
 }

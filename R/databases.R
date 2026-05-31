@@ -3,7 +3,8 @@
 #' Wrappers for the D1 database management endpoints.
 #'
 #' @param name Database name. For `d1_list_databases()`, an optional filter.
-#' @param database_id Database UUID.
+#' @param database_id A database UUID, name, `d1_database` object, or open
+#'   `D1Connection` (resolved with [d1_database_id()]).
 #' @param location_hint Optional primary location hint, e.g. `"wnam"`.
 #' @param mode Read-replication mode, `"auto"` or `"disabled"`.
 #' @param account_id,token Cloudflare credentials. See [d1_token()].
@@ -47,6 +48,7 @@ d1_get_database <- function(
   account_id = d1_account(),
   token = d1_token()
 ) {
+  resolve_db(database_id, account_id, token)
   new_database(
     d1_call(account_id, database_id, token = token),
     account_id,
@@ -94,6 +96,7 @@ d1_delete_database <- function(
   account_id = d1_account(),
   token = d1_token()
 ) {
+  resolve_db(database_id, account_id, token)
   d1_call(account_id, database_id, token = token, method = "DELETE")
   invisible(NULL)
 }
@@ -104,8 +107,8 @@ d1_delete_database <- function(
 #' name. Useful for calling any `d1_*()` function, or [DBI::dbConnect()], with
 #' a human-readable name instead of a UUID.
 #'
-#' @param database A database UUID, name, or object from
-#'   [d1_create_database()] / [d1_get_database()].
+#' @param database A database UUID, name, a `d1_database` object from
+#'   [d1_create_database()] / [d1_get_database()], or an open `D1Connection`.
 #' @param account_id,token Cloudflare credentials. See [d1_token()].
 #' @return A database UUID string.
 #' @export
@@ -114,6 +117,9 @@ d1_database_id <- function(
   account_id = d1_account(),
   token = d1_token()
 ) {
+  if (inherits(database, "D1Connection")) {
+    return(database@database_id)
+  }
   if (inherits(database, "d1_database")) {
     return(database$uuid)
   }
@@ -135,6 +141,24 @@ d1_database_id <- function(
   hit
 }
 
+# Resolve a database reference inside a `d1_*()` function, rebinding
+# `database_id`, `account_id`, and `token` in the calling frame. Accepts a
+# UUID, name, `d1_database` object, or `D1Connection`. A connection supplies
+# its own credentials (and they are never read from the environment); any other
+# reference uses the caller's `account_id`/`token`.
+resolve_db <- function(database_id, account_id, token, env = parent.frame()) {
+  if (inherits(database_id, "D1Connection")) {
+    env$account_id <- database_id@account_id
+    env$token <- database_id@token
+    env$database_id <- database_id@database_id
+  } else {
+    env$database_id <- d1_database_id(database_id, account_id, token)
+    env$account_id <- account_id
+    env$token <- token
+  }
+  invisible()
+}
+
 #' @rdname d1_list_databases
 #' @export
 d1_set_replication <- function(
@@ -144,6 +168,7 @@ d1_set_replication <- function(
   token = d1_token()
 ) {
   mode <- match.arg(mode)
+  resolve_db(database_id, account_id, token)
   d1_call(
     account_id,
     database_id,

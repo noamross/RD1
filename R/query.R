@@ -8,7 +8,8 @@
 #' it does, a list with one element per statement is returned; otherwise a
 #' single object is returned directly.
 #'
-#' @param database_id Database UUID.
+#' @param database_id A database UUID, name, `d1_database` object, or open
+#'   `D1Connection` (resolved with [d1_database_id()]).
 #' @param sql SQL string. May contain `?` placeholders bound from `params`.
 #' @param params A list (or vector) of values bound to `?` placeholders.
 #' @param account_id,token Cloudflare credentials. See [d1_token()].
@@ -22,6 +23,7 @@ d1_query <- function(
   account_id = d1_account(),
   token = d1_token()
 ) {
+  resolve_db(database_id, account_id, token)
   res <- d1_sql(account_id, database_id, "query", sql, params, token)
   unwrap1(lapply(res, function(r) obj_to_df(r$results)))
 }
@@ -35,6 +37,7 @@ d1_raw <- function(
   account_id = d1_account(),
   token = d1_token()
 ) {
+  resolve_db(database_id, account_id, token)
   unwrap1(d1_sql(account_id, database_id, "raw", sql, params, token))
 }
 

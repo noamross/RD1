@@ -22,7 +22,8 @@ d1_raw(
 )
 }
 \arguments{
-\item{database_id}{Database UUID.}
+\item{database_id}{A database UUID, name, \code{d1_database} object, or open
+\code{D1Connection} (resolved with \code{\link[=d1_database_id]{d1_database_id()}}).}
 
 \item{sql}{SQL string. May contain \verb{?} placeholders bound from \code{params}.}
 

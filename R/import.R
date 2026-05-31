@@ -5,7 +5,8 @@
 #' convenience wrapper that dumps a local SQLite database to SQL and imports
 #' it, the inverse of [d1_download_sqlite()].
 #'
-#' @param database_id Database UUID.
+#' @param database_id A database UUID, name, `d1_database` object, or open
+#'   `D1Connection` (resolved with [d1_database_id()]).
 #' @param file Path to a `.sql` file (`d1_import()`) or `.sqlite` file
 #'   (`d1_upload_sqlite()`).
 #' @param poll_interval Seconds between polls while the import is applied.
@@ -20,6 +21,7 @@ d1_import <- function(
   account_id = d1_account(),
   token = d1_token()
 ) {
+  resolve_db(database_id, account_id, token)
   etag <- unname(tools::md5sum(file))
   import <- function(body) {
     d1_call(
@@ -62,6 +64,7 @@ d1_upload_sqlite <- function(
   account_id = d1_account(),
   token = d1_token()
 ) {
+  resolve_db(database_id, account_id, token)
   rlang::check_installed("RSQLite", "to read a local SQLite database.")
   con <- RSQLite::dbConnect(RSQLite::SQLite(), file)
   on.exit(DBI::dbDisconnect(con))

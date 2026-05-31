@@ -12,11 +12,11 @@ For how D1 differs from file-based SQLite and how this package handles those
 differences, see the "Differences between D1 and SQLite" section of \code{\link[=d1]{d1()}}.
 }
 \author{
-\strong{Maintainer}: Noam Ross \email{noam@raft.foundation}
+\strong{Maintainer}: Noam Ross \email{noam.ross+rd1@gmail.com}
 
 Authors:
 \itemize{
-  \item Noam Ross \email{noam@raft.foundation}
+  \item Noam Ross \email{noam.ross+rd1@gmail.com}
 }
 
 }

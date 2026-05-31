@@ -7,8 +7,8 @@
 d1_database_id(database, account_id = d1_account(), token = d1_token())
 }
 \arguments{
-\item{database}{A database UUID, name, or object from
-\code{\link[=d1_create_database]{d1_create_database()}} / \code{\link[=d1_get_database]{d1_get_database()}}.}
+\item{database}{A database UUID, name, a \code{d1_database} object from
+\code{\link[=d1_create_database]{d1_create_database()}} / \code{\link[=d1_get_database]{d1_get_database()}}, or an open \code{D1Connection}.}
 
 \item{account_id, token}{Cloudflare credentials. See \code{\link[=d1_token]{d1_token()}}.}
 }
