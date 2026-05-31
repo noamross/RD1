@@ -1,6 +1,7 @@
 # RD1
 
 <!-- badges: start -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R-CMD-check](https://github.com/noamross/RD1/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/noamross/RD1/actions/workflows/R-CMD-check.yaml)
 [![Codecov test coverage](https://codecov.io/gh/noamross/RD1/graph/badge.svg)](https://app.codecov.io/gh/noamross/RD1)
 [![R-universe version](https://noamross.r-universe.dev/RD1/badges/version)](https://noamross.r-universe.dev/RD1)
