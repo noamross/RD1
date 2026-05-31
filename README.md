@@ -3,6 +3,7 @@
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/noamross/RD1/actions/workflows/R-CMD-check.yaml/badge.svghttps://github.com/noamross/RD1/actions/workflows/R-CMD-check.yaml/badge.svghttps://github.com/noamross/RD1/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/noamross/RD1/actions/workflows/R-CMD-check.yaml)
 [![Codecov test coverage](https://codecov.io/gh/noamross/RD1/graph/badge.svg)](https://app.codecov.io/gh/noamross/RD1)
+[![R-universe version](https://noamross.r-universe.dev/RD1/badges/version)](https://noamross.r-universe.dev/RD1)
 <!-- badges: end -->
 
 A [DBI](https://dbi.r-dbi.org) client API
