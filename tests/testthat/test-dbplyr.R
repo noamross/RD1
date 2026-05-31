@@ -1,10 +1,13 @@
 test_that("D1 reuses dbplyr's SQLite translation (offline)", {
   skip_if_not_installed("dbplyr")
   # A UUID-form id passes through without a network call, and with no
-  # connection observer present dbConnect makes no requests.
+  # connection observer present dbConnect makes no requests, so dummy
+  # credentials keep this test fully offline (and CI-safe).
   con <- DBI::dbConnect(
     d1(),
-    database_id = "00000000-0000-0000-0000-000000000000"
+    database_id = "00000000-0000-0000-0000-000000000000",
+    account_id = "test",
+    token = "test"
   )
 
   expect_equal(dbplyr::dbplyr_edition(con), 2L)
