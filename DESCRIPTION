@@ -1,27 +1,31 @@
-Package: r2d1
+Package: RD1
 Title: DBI Client and API Wrapper for Cloudflare D1
 Version: 0.0.0.9000
 Authors@R: 
-    person("Noam", "Ross", , "noam@raft.foundation", role = c("aut", "cre"))
-Description: A lightweight DBI-compliant database interface and API client
-    for Cloudflare D1, the serverless SQLite database. Provides wrappers
-    for all D1 REST API endpoints, including time travel and
-    bookmark-based restoration, plus convenience functions for common
-    multi-step workflows such as exporting and downloading databases.
+    person("Noam", "Ross", , "noam.ross+rd1@gmail.com", role = c("aut", "cre"))
+Description: A DBI-compliant database interface and API client for
+    Cloudflare D1's serverless SQLite database. Provides wrappers for D1
+    REST API endpoints, including time travel and bookmark-based
+    restoration, plus convenience functions for common multi-step
+    workflows such as exporting and downloading databases.
 License: MIT + file LICENSE
-Encoding: UTF-8
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 8.0.0
-Suggests: 
-    DBItest,
-    RSQLite,
-    testthat,
-    withr
-Config/testthat/edition: 3
+Depends:
+    R (>= 4.1.0)
 Imports: 
     cli,
     DBI,
     httr2,
-    jsonlite,
     methods,
     rlang
+Suggests: 
+    DBItest,
+    dbplyr,
+    dplyr,
+    RSQLite,
+    rstudioapi,
+    testthat,
+    withr
+Config/testthat/edition: 3
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 8.0.0
