@@ -25,7 +25,7 @@ install.packages("RD1", repos = c('https://noamross.r-universe.dev', 'https://cl
 Install the development versions from GitHub with
 
 ```r
-remotes::install_github("noamross/D1")
+remotes::install_github("noamross/RD1")
 ```
 
 ## Credentials
